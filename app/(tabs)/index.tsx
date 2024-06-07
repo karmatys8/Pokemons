@@ -1,4 +1,6 @@
-import { StyleSheet, FlatList, Button, TouchableOpacity } from "react-native";
+import React from "react";
+
+import { TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 
 import ParallaxScrollView from "@/components/ParallaxScrollView";
