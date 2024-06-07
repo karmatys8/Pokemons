@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "backgroundColor": "#fff",
+      },
+      {
+        "gap": 8,
+        "marginBottom": 8,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        undefined,
+        undefined,
+        undefined,
+        {
+          "fontSize": 20,
+          "fontWeight": "bold",
+        },
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    Stats
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        {
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    hp: 81
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        {
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    attack: 102
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        {
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    defense: 77
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        {
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    special-attack: 85
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        {
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    special-defense: 75
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        {
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    speed: 85
+  </Text>
+</View>
+`;

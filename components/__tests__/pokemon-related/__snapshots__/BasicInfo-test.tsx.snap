@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    [
+      {
+        "backgroundColor": "#fff",
+      },
+      {
+        "gap": 8,
+        "marginBottom": 8,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        undefined,
+        undefined,
+        undefined,
+        {
+          "fontSize": 20,
+          "fontWeight": "bold",
+        },
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    Name: nidoking
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        {
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    Height: 14
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#11181C",
+        },
+        {
+          "fontSize": 16,
+          "lineHeight": 24,
+        },
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    Weight: 620
+  </Text>
+</View>
+`;
