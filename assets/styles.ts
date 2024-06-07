@@ -29,4 +29,9 @@ export const styles = StyleSheet.create({
       left: 0,
       position: "absolute",
     },
+    smallPokemonImage: {
+      height: 96,
+      aspectRatio: "1 / 1",
+      backgroundColor: "#cccccc"
+    }
   });

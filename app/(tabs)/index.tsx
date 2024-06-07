@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TouchableOpacity } from "react-native";
+import { Pressable, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -56,13 +56,13 @@ export default function HomeScreen() {
             <ThemedText type="title">This is your favorite pokemon!</ThemedText>
           </ThemedView>
           <ThemedView style={styles.buttonContainer}>
-            <TouchableOpacity
+            <Pressable
               style={styles.buttonStyle}
               onPress={handleUnfav}
               accessibilityLabel="Button to unfav pokemon"
             >
               <ThemedText style={{ color: "white" }}>Not Anymore</ThemedText>
-            </TouchableOpacity>
+            </Pressable>
           </ThemedView>
           {/*is the use of spread justified here?*/}
           <BasicInfo {...favPokemon} />
