@@ -11,10 +11,6 @@ export interface Pokemon {
     height: number,
     id: number,
     name: string,
-    species: {
-        name: string,
-        url: string
-    },
     sprites: {
         back_default: string,
         back_female: string | null,
@@ -26,14 +22,23 @@ export interface Pokemon {
         front_shiny_female: string | null,
     },
     stats: Stat[],
-    types: [
-        {
-            slot: number,
-            type: {
-                name: string,
-                url: string
-            }
-        }
-    ],
     weight: number
 }
+
+export const errorPokemon = {
+    name: "ERROR",
+    sprites: {
+      front_default: "",
+      back_default: "",
+      back_shiny: "",
+      front_shiny: "",
+      back_female: null,
+      back_shiny_female: null,
+      front_female: null,
+      front_shiny_female: null,
+    },
+    height: 0,
+    weight: 0,
+    stats: [],
+    id: -1,
+  };

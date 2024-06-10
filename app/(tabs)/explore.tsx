@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
 
-import { FlatList } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import Card from "@/components/pokemon-related/Card";
 
 import { styles } from "@/assets/styles";
-import { Pokemon } from "@/assets/types";
+import { Pokemon, errorPokemon } from "@/assets/types";
+import PokemonModal from "@/components/pokemon-related/PokemonModal";
 
 interface PokemonToFetch {
   name: string;
   url: string;
+}
+
+interface FetchResponse {
+  pokemons: PokemonToFetch[];
+  nextUrl: string;
 }
 
 interface ApiResponse {
@@ -19,20 +25,13 @@ interface ApiResponse {
   next: string;
 }
 
-interface PokemonEntry {
-  name: string;
-  image: string;
-}
-
-export default function TabTwoScreen() {
-  const [fetchData, setFetchData] = useState<{
-    pokemons: PokemonToFetch[];
-    nextUrl: string;
-  }>({
+function TabTwoScreen() {
+  const [fetchData, setFetchData] = useState<FetchResponse>({
     pokemons: [],
     nextUrl: "",
   });
-  const [pokemons, setPokemons] = useState<PokemonEntry[]>([]);
+  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [focusedPokemon, setFocusedPokemon] = useState<Pokemon | null>(null);
 
   const fetchListData = async (url: string) => {
     if (url === null) return; // if we fetched every pokemon already
@@ -57,28 +56,25 @@ export default function TabTwoScreen() {
 
   useEffect(() => {
     const fetchPokemonDetails = async (urls: string[]) => {
-      const promises = urls.map(async (url): Promise<PokemonEntry> => {
+      const promises = urls.map(async (url): Promise<Pokemon> => {
         try {
           const response = await fetch(url);
           const data: Pokemon = await response.json();
-          return {
-            name: data.name,
-            image: data.sprites.front_default,
-          };
+          return data;
         } catch (err) {
           console.error("Error fetching/parsing JSON:", err);
-          return { name: "ERROR", image: "" };
+          return errorPokemon;
         }
       });
 
       try {
         const results = await Promise.allSettled(promises);
-        const validResults = results.map((result): PokemonEntry => {
+        const validResults = results.map((result): Pokemon => {
           if (result.status === "fulfilled") {
             return result.value;
           } else {
             console.error("Fetch error:", result.reason);
-            return { name: "ERROR", image: "" };
+            return errorPokemon;
           }
         });
         setPokemons((curr) => curr.concat(validResults));
@@ -93,16 +89,39 @@ export default function TabTwoScreen() {
   }, [fetchData]);
 
   return (
-    <ThemedView>
+    <ThemedView style={localStyles.container}>
+      <PokemonModal
+        isModalVisible={focusedPokemon !== null}
+        pokemon={focusedPokemon}
+        setFocusedPokemon={setFocusedPokemon}
+      />
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Pokemon List</ThemedText>
       </ThemedView>
       <FlatList
         data={pokemons}
-        renderItem={({ item }) => <Card name={item.name} img={item.image} />}
+        renderItem={({ item }) => (
+          <Card
+            name={item.name}
+            img={item.sprites.front_default}
+            handlePress={() => {
+              setFocusedPokemon(item);
+            }}
+          />
+        )}
         keyExtractor={(item) => item.name}
         onEndReached={() => fetchListData(fetchData.nextUrl)}
       />
     </ThemedView>
   );
 }
+
+const localStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 25,
+    paddingHorizontal: 10,
+  },
+});
+
+export default React.memo(TabTwoScreen);

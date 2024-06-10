@@ -1,6 +1,6 @@
 import React from "react";
 
-import { StyleSheet } from "react-native";
+import { GestureResponderEvent, Pressable, StyleSheet } from "react-native";
 
 import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
@@ -11,12 +11,15 @@ import { Image } from "expo-image";
 interface CardProps {
   img: string;
   name: string;
+  handlePress: (event: GestureResponderEvent) => void;
 }
 
-const Card: React.FC<CardProps> = ({ img, name }) => (
+const Card: React.FC<CardProps> = ({ img, name, handlePress }) => (
   <ThemedView style={localStyles.cardContainer}>
     {/* maybe lazy load the image */}
-    <Image source={img} alt={name} style={styles.smallPokemonImage} />
+    <Pressable onPress={handlePress}>
+      <Image source={img} alt={name} style={styles.smallPokemonImage} />
+    </Pressable>
     <ThemedText style={localStyles.textStyle}>{name}</ThemedText>
   </ThemedView>
 );
