@@ -6,8 +6,7 @@ import { Image } from "expo-image";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { useEffect, useState } from "react";
-import { Pokemon } from "@/assets/types";
+import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { styles } from "@/assets/styles";

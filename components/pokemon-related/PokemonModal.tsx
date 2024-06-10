@@ -7,7 +7,6 @@ import { ThemedText } from "../ThemedText";
 
 import { Pokemon } from "@/assets/types";
 import { styles } from "@/assets/styles";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import BasicInfo from "./BasicInfo";
 import Stats from "./Stats";
 import { useFavPokemon } from "@/contexts/FavPokemon";
