@@ -10,6 +10,7 @@ import { styles } from "@/assets/styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BasicInfo from "./BasicInfo";
 import Stats from "./Stats";
+import { useFavPokemon } from "@/contexts/FavPokemon";
 
 interface StatsProps {
   isModalVisible: boolean;
@@ -22,12 +23,14 @@ const PokemonModal: React.FC<StatsProps> = ({
   setFocusedPokemon,
   pokemon,
 }) => {
+  const { setFavPokemon } = useFavPokemon();
+
   const handleClose = () => {
     setFocusedPokemon(null);
   };
 
   const handleFav = () => {
-    AsyncStorage.setItem("favPokemon", JSON.stringify(pokemon));
+    setFavPokemon(pokemon);
     handleClose();
   };
 

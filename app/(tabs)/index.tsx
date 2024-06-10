@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Pressable, TouchableOpacity } from "react-native";
+import { Pressable } from "react-native";
 import { Image } from "expo-image";
 
 import ParallaxScrollView from "@/components/ParallaxScrollView";
@@ -13,9 +13,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { styles } from "@/assets/styles";
 import Stats from "@/components/pokemon-related/Stats";
 import BasicInfo from "@/components/pokemon-related/BasicInfo";
+import { useFavPokemon } from "@/contexts/FavPokemon";
 
 export default function HomeScreen() {
-  const [favPokemon, setFavPokemon] = useState<Pokemon | null>(null);
+  const { favPokemon, setFavPokemon } = useFavPokemon();
 
   useEffect(() => {
     const checkStorage = async () => {
@@ -27,10 +28,6 @@ export default function HomeScreen() {
 
     checkStorage();
   }, []);
-
-  useEffect(() => {
-    AsyncStorage.setItem("favPokemon", JSON.stringify(favPokemon));
-  }, [favPokemon]);
 
   const handleUnfav = () => {
     setFavPokemon(null);
