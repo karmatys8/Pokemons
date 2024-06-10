@@ -7,36 +7,57 @@ import { ThemedView } from "@/components/ThemedView";
 import Card from "@/components/pokemon-related/Card";
 
 import { styles } from "@/assets/styles";
-import { Pokemon, PokemonListEntry, PokemonToFetch } from "@/assets/types";
+import { Pokemon } from "@/assets/types";
+
+interface PokemonToFetch {
+  name: string;
+  url: string;
+}
 
 interface ApiResponse {
   results: PokemonToFetch[];
+  next: string;
+}
+
+interface PokemonEntry {
+  name: string;
+  image: string;
 }
 
 export default function TabTwoScreen() {
-  const [tmp, setTmp] = useState<PokemonToFetch[]>([]);
-  const [pokemons, setPokemons] = useState<PokemonListEntry[]>([]);
+  const [fetchData, setFetchData] = useState<{
+    pokemons: PokemonToFetch[];
+    nextUrl: string;
+  }>({
+    pokemons: [],
+    nextUrl: "",
+  });
+  const [pokemons, setPokemons] = useState<PokemonEntry[]>([]);
+
+  const fetchListData = async (url: string) => {
+    if (url === null) return; // if we fetched every pokemon already
+
+    try {
+      const response = await fetch(url);
+
+      if (response.ok) {
+        const data: ApiResponse = await response.json();
+        setFetchData({ pokemons: data.results, nextUrl: data.next });
+      } else {
+        throw new Error("Network response was not ok.");
+      }
+    } catch (err) {
+      console.error("Failed to load initial pokemons:", err);
+    }
+  };
 
   useEffect(() => {
-    const fetchPokemons = async () => {
-      try {
-        const response = await fetch("https://pokeapi.co/api/v2/pokemon");
-
-        if (response.ok) {
-          const data: ApiResponse = await response.json();
-          setTmp(data.results);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchPokemons();
+    fetchListData("https://pokeapi.co/api/v2/pokemon");
   }, []);
 
   useEffect(() => {
-    async function fetchData(urls: string[]) {
-      const promises = urls.map(async (url): Promise<PokemonListEntry> => {
+    const fetchPokemonDetails = async (urls: string[]) => {
+      const promises = urls.map(async (url): Promise<PokemonEntry> => {
         try {
           const response = await fetch(url);
           const data: Pokemon = await response.json();
@@ -51,8 +72,8 @@ export default function TabTwoScreen() {
       });
 
       try {
-        const completeResults = await Promise.allSettled(promises);
-        const validResults = completeResults.map((result): PokemonListEntry => {
+        const results = await Promise.allSettled(promises);
+        const validResults = results.map((result): PokemonEntry => {
           if (result.status === "fulfilled") {
             return result.value;
           } else {
@@ -64,12 +85,12 @@ export default function TabTwoScreen() {
       } catch (error) {
         console.error("Unexpected error during fetch operations:", error);
       }
-    }
+    };
 
-    if (tmp.length > 0) {
-      fetchData(tmp.map((obj) => obj.url));
+    if (fetchData.pokemons.length > 0) {
+      fetchPokemonDetails(fetchData.pokemons.map((obj) => obj.url));
     }
-  }, [tmp]);
+  }, [fetchData]);
 
   return (
     <ThemedView>
@@ -80,6 +101,7 @@ export default function TabTwoScreen() {
         data={pokemons}
         renderItem={({ item }) => <Card name={item.name} img={item.image} />}
         keyExtractor={(item) => item.name}
+        onEndReached={() => fetchListData(fetchData.nextUrl)}
       />
     </ThemedView>
   );

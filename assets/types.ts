@@ -37,13 +37,3 @@ export interface Pokemon {
     ],
     weight: number
 }
-
-export interface PokemonToFetch {
-    name: string,
-    url: string
-}
-
-export interface PokemonListEntry {
-    name: string,
-    image: string
-}
