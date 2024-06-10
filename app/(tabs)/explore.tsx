@@ -25,7 +25,7 @@ interface ApiResponse {
   next: string;
 }
 
-function TabTwoScreen() {
+function Pokedex() {
   const [fetchData, setFetchData] = useState<FetchResponse>({
     pokemons: [],
     nextUrl: "",
@@ -124,4 +124,4 @@ const localStyles = StyleSheet.create({
   },
 });
 
-export default React.memo(TabTwoScreen);
+export default React.memo(Pokedex);

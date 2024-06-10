@@ -47,7 +47,6 @@ export default function HomeScreen() {
     >
       {favPokemon ? (
         <>
-          {/* there is flashing but fixing it is a bother */}
           <ThemedView style={styles.titleContainer}>
             <ThemedText type="title">This is your favorite pokemon!</ThemedText>
           </ThemedView>
@@ -60,7 +59,6 @@ export default function HomeScreen() {
               <ThemedText style={{ color: "white" }}>Not Anymore</ThemedText>
             </Pressable>
           </ThemedView>
-          {/*is the use of spread justified here?*/}
           <BasicInfo {...favPokemon} />
           <Stats statsArray={favPokemon.stats} />
         </>
@@ -71,7 +69,6 @@ export default function HomeScreen() {
               Here your favorite pokemon will show!
             </ThemedText>
           </ThemedView>
-          {/* here will be a navigation link to the list */}
         </ThemedView>
       )}
     </ParallaxScrollView>

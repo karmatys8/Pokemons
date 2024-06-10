@@ -16,7 +16,6 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ img, name, handlePress }) => (
   <ThemedView style={localStyles.cardContainer}>
-    {/* maybe lazy load the image */}
     <Pressable onPress={handlePress}>
       <Image source={img} alt={name} style={styles.smallPokemonImage} />
     </Pressable>
