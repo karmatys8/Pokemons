@@ -1,17 +1,22 @@
 import React, {
   createContext,
-  ReactNode,
+  PropsWithChildren,
   useContext,
   useEffect,
   useState,
 } from "react";
-import { Pokemon } from "@/assets/types";
+import { Pokemon } from "@/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-interface FavPokemonContextType {
-  favPokemon: Pokemon | null;
-  setFavPokemon: React.Dispatch<React.SetStateAction<Pokemon | null>>;
-}
+import { useAtom } from "jotai";
+import { atomWithStorage } from "jotai/utils";
+
+type PokemonOrNull = Pokemon | null;
+
+type FavPokemonContextType = {
+  favPokemon: PokemonOrNull;
+  setFavPokemon: React.Dispatch<React.SetStateAction<PokemonOrNull>>;
+};
 
 const FavPokemonContext = createContext<FavPokemonContextType | undefined>(
   undefined
@@ -25,18 +30,14 @@ export const useFavPokemon = () => {
   return context;
 };
 
-interface FavPokemonProviderProps {
-  children: ReactNode;
-}
+const favPokemonAtom = atomWithStorage("favPokemon", null, undefined, {
+  getOnInit: true,
+});
 
-export const FavPokemonProvider: React.FC<FavPokemonProviderProps> = ({
+export const FavPokemonProvider: React.FC<PropsWithChildren<{}>> = ({
   children,
 }) => {
-  const [favPokemon, setFavPokemon] = useState<Pokemon | null>(null);
-
-  useEffect(() => {
-    AsyncStorage.setItem("favPokemon", JSON.stringify(favPokemon));
-  }, [favPokemon]);
+  const [favPokemon, setFavPokemon] = useAtom<PokemonOrNull>(favPokemonAtom);
 
   return (
     <FavPokemonContext.Provider value={{ favPokemon, setFavPokemon }}>

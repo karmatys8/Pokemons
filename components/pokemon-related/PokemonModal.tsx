@@ -5,17 +5,17 @@ import { Modal, Pressable, StyleSheet } from "react-native";
 import { ThemedView } from "../ThemedView";
 import { ThemedText } from "../ThemedText";
 
-import { Pokemon } from "@/assets/types";
+import { Pokemon } from "@/types";
 import { styles } from "@/assets/styles";
 import BasicInfo from "./BasicInfo";
 import Stats from "./Stats";
 import { useFavPokemon } from "@/contexts/FavPokemon";
 
-interface StatsProps {
+type StatsProps = {
   isModalVisible: boolean;
   setFocusedPokemon: React.Dispatch<React.SetStateAction<Pokemon | null>>;
   pokemon: Pokemon | null;
-}
+};
 
 const PokemonModal: React.FC<StatsProps> = ({
   isModalVisible,

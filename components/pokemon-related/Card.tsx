@@ -8,11 +8,11 @@ import { ThemedText } from "../ThemedText";
 import { styles } from "@/assets/styles";
 import { Image } from "expo-image";
 
-interface CardProps {
+type CardProps = {
   img: string;
   name: string;
   handlePress: (event: GestureResponderEvent) => void;
-}
+};
 
 const Card: React.FC<CardProps> = ({ img, name, handlePress }) => (
   <ThemedView style={localStyles.cardContainer}>

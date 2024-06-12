@@ -13,16 +13,16 @@ import { ThemedView } from "@/components/ThemedView";
 
 const HEADER_HEIGHT = 250;
 
-type Props = PropsWithChildren<{
+type ParallaxScrollViewProps ={
   headerImage: ReactElement;
   headerBackgroundColor: { dark: string; light: string };
-}>;
+}
 
 export default function ParallaxScrollView({
   children,
   headerImage,
   headerBackgroundColor,
-}: Props) {
+}: PropsWithChildren<ParallaxScrollViewProps>) {
   const colorScheme = useColorScheme() ?? "light";
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);

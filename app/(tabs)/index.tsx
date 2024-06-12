@@ -32,6 +32,16 @@ export default function HomeScreen() {
     setFavPokemon(null);
   };
 
+  const renderFallback = (
+    <ThemedView>
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText type="title">
+          Here your favorite pokemon will show!
+        </ThemedText>
+      </ThemedView>
+    </ThemedView>
+  );
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -45,7 +55,9 @@ export default function HomeScreen() {
         />
       }
     >
-      {favPokemon ? (
+      {!favPokemon ? (
+        renderFallback
+      ) : (
         <>
           <ThemedView style={styles.titleContainer}>
             <ThemedText type="title">This is your favorite pokemon!</ThemedText>
@@ -62,14 +74,6 @@ export default function HomeScreen() {
           <BasicInfo {...favPokemon} />
           <Stats statsArray={favPokemon.stats} />
         </>
-      ) : (
-        <ThemedView>
-          <ThemedView style={styles.titleContainer}>
-            <ThemedText type="title">
-              Here your favorite pokemon will show!
-            </ThemedText>
-          </ThemedView>
-        </ThemedView>
       )}
     </ParallaxScrollView>
   );

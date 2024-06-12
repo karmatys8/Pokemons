@@ -5,11 +5,11 @@ import { ThemedText } from "../ThemedText";
 
 import { styles } from "@/assets/styles";
 
-interface InfoProps {
+type InfoProps = {
   name: string;
   height: number;
   weight: number;
-}
+};
 
 const BasicInfo: React.FC<InfoProps> = ({ name, height, weight }) => (
   <ThemedView style={styles.stepContainer}>

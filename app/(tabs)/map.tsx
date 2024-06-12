@@ -4,17 +4,18 @@ import MapView, { Marker, LongPressEvent } from "react-native-maps";
 import { ThemedView } from "@/components/ThemedView";
 import { StyleSheet } from "react-native";
 
-import { Pokemon, defaultPokemon } from "@/assets/types";
+import { Pokemon } from "@/types";
+import { DEFAULT_POKEMON } from "@/constants/DefaultPokemon";
 import { useFavPokemon } from "@/contexts/FavPokemon";
 import PokemonModal from "@/components/pokemon-related/PokemonModal";
 
-interface EncounterData {
+type EncounterData = {
   pokemon: Pokemon;
   coordinates: {
     latitude: number;
     longitude: number;
   };
-}
+};
 
 export default function Map() {
   const [markers, setMarkers] = useState<EncounterData[]>([]);
@@ -25,7 +26,7 @@ export default function Map() {
     event.persist();
 
     const newEncounter: EncounterData = {
-      pokemon: favPokemon ?? defaultPokemon,
+      pokemon: favPokemon ?? DEFAULT_POKEMON,
       coordinates: event.nativeEvent.coordinate,
     };
     setMarkers((curr) => [...curr, newEncounter]);
